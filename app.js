@@ -18,7 +18,7 @@ connectDB();
 
 const allowedOrigins = [
   // "paste Frontend hosted Link"
-  "http://localhost:3000"
+  "https://exp3nzo.netlify.app"
 ];
 
 // Middleware
