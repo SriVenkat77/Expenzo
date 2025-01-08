@@ -100,13 +100,7 @@ Add Transaction Page
 Transaction Form:
 Users can add income or expenses by providing:
 
-Amount
-
-Category
-
-Date
-
-Description
+Amount,Category,Date,Description.
 
 Technical Details
 
