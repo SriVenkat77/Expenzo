@@ -31,14 +31,12 @@
     margin-bottom: 10px;
 }
   
-/* .data-table tbody tr:hover {
-    background-color: #f5f5f5;
+ .data-table tbody tr:hover {
+    background-color: #a279f5;
     cursor: pointer;
 }
   
-.data-table tbody tr:nth-child(even) {
-    background-color: #f8f8f8;
-} */
+
 
 .containerBtn{
     display: flex;
@@ -113,3 +111,67 @@
         margin-left: 0px !important;
     }
 }
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .welcome-message h2 {
+    font-size: 1.8rem;
+    color: #fff;
+  }
+  
+  .welcome-message p {
+    font-size: 1.1rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-box {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+  
+  .icon {
+    text-align: center;
+  }
+  
+  .icon p {
+    margin-top: 1rem;
+    color: #fff;
+  }
+  
+  .icon-box .icon svg {
+    color: #4caf50;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-box .icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Media query for small screens (e.g., mobile) */
+  @media (max-width: 768px) {
+    .icon-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two horizontal lines */
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+  
+    .icon {
+      font-size: 1.5rem; /* Smaller size for icons */
+    }
+  
+    .icon p {
+      display: none; /* Hide text on small screens */
+    }
+  
+    .icon-box .icon svg {
+      font-size: 2rem; /* Smaller icon size */
+    }
+  }
+  

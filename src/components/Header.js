@@ -111,7 +111,7 @@ const navigate = useNavigate();
           bottom: 0,
         }}
       />
-    <Navbar className="navbarCSS" collapseOnSelect expand="lg" style={{position: 'relative', zIndex: "2 !important"}}>
+    <Navbar className="navbarCSS" collapseOnSelect expand="sm" style={{position: 'relative', zIndex: "2 !important", backgroundColor: "gray"}}>
       {/* <Navbar className="navbarCSS" collapseOnSelect expand="lg" bg="dark" variant="dark"> */}
         <Navbar.Brand href="/" className="text-white navTitle"> <img 
     src="/Expenz.png" 
@@ -121,7 +121,7 @@ const navigate = useNavigate();
         <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             style={{
-              backgroundColor: "transparent",
+              backgroundColor: "black",
               borderColor: "transparent",
             }}
           >
@@ -133,23 +133,48 @@ const navigate = useNavigate();
             ></span>
           </Navbar.Toggle>
         <div>
-        <Navbar.Collapse id="responsive-navbar-nav" style={{color: "white"}}>
-          {user ? (
-            <>
-            <Nav>
-                <Button variant="primary" onClick={handleShowLogout} className="ml-2">Logout</Button>
-              </Nav>
-            </>
+        <Navbar.Collapse id="responsive-navbar-nav" style={{ color: "white" }}>
+  {user ? (
+    <>
+      <Nav>
+        <div className="user-info">
+          {user.avatarImage ? (
+            <img
+              src={user.avatarImage}
+              alt="User Avatar"
+              className="avatar-img"
+            />
           ) : (
-
-            <>
-              <Nav>
-                <Button variant="primary" onClick={handleShowLogin} className="ml-2">Login</Button>
-              </Nav>
-            </>
+            <span className="user-initials">
+              {user.username[0].toUpperCase()}
+            </span>
           )}
           
-        </Navbar.Collapse>
+        </div>
+        <Button
+          variant="primary"
+          onClick={handleShowLogout}
+          className="ml-2"
+        >
+          Logout
+        </Button>
+      </Nav>
+    </>
+  ) : (
+    <>
+      <Nav>
+        <Button
+          variant="primary"
+          onClick={handleShowLogin}
+          className="ml-2"
+        >
+          Login
+        </Button>
+      </Nav>
+    </>
+  )}
+</Navbar.Collapse>
+
       </div>
       </Navbar>
       </div>

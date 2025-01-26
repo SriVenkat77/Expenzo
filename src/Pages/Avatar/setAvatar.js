@@ -57,7 +57,7 @@ const SetAvatar = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const [setSelectedSprite] = React.useState(sprites[0]);
+  
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -82,27 +82,24 @@ const SetAvatar = () => {
     `https://api.dicebear.com/7.x/${sprites[0]}/svg?seed=${randomName()}`,
   ]);
 
-  const handleSpriteChange = (e) => {
-    setSelectedSprite(() => {
-      if (e.target.value.length > 0) {
-        setLoading(true);
-        const imgData = [];
-        for (let i = 0; i < 4; i++) {
-          imgData.push(
-            `https://api.dicebear.com/7.x/${
-              e.target.value
-            }/svg?seed=${randomName()}`
-          );
-        }
+  const [selectedSprite, setSelectedSprite] = React.useState(sprites[0]);
 
-        setImgURL(imgData);
-        // console.log(imgData);
-        setLoading(false);
-      }
+const handleSpriteChange = (e) => {
+  if (e.target.value.length > 0) {
+    setLoading(true);
+    const imgData = [];
+    for (let i = 0; i < 4; i++) {
+      imgData.push(
+        `https://api.dicebear.com/7.x/${e.target.value}/svg?seed=${randomName()}`
+      );
+    }
 
-      return e.target.value;
-    });
-  };
+    setImgURL(imgData);
+    setLoading(false);
+    setSelectedSprite(e.target.value); // Update the state for selectedSprite
+  }
+};
+
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {

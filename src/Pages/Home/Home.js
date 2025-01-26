@@ -15,6 +15,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Analytics from "./Analytics";
+import { FaWallet, FaRegCreditCard, FaPiggyBank, FaChartLine, FaDollarSign, FaCogs } from 'react-icons/fa';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Home = () => {
       if (localStorage.getItem("user")) {
         const user = JSON.parse(localStorage.getItem("user"));
         console.log(user);
-
+  
         if (user.isAvatarImageSet === false || user.avatarImage === "") {
           navigate("/setAvatar");
         }
@@ -66,7 +67,7 @@ const Home = () => {
         navigate("/login");
       }
     };
-
+  
     avatarFunc();
   }, [navigate]);
 
@@ -142,31 +143,32 @@ const Home = () => {
 
 
   useEffect(() => {
-
-    const fetchAllTransactions = async () => {
-      try {
-        setLoading(true);
-        console.log(cUser._id, frequency, startDate, endDate, type);
-        const { data } = await axios.post(getTransactions, {
-          userId: cUser._id,
-          frequency: frequency,
-          startDate: startDate,
-          endDate: endDate,
-          type: type,
-        });
-        console.log(data);
+    if (cUser && cUser._id) {
+      const fetchAllTransactions = async () => {
+        try {
+          setLoading(true);
+          console.log(cUser._id, frequency, startDate, endDate, type);
+          const { data } = await axios.post(getTransactions, {
+            userId: cUser._id,
+            frequency: frequency,
+            startDate: startDate,
+            endDate: endDate,
+            type: type,
+          });
+          console.log(data);
   
-        setTransactions(data.transactions);
+          setTransactions(data.transactions);
   
-        setLoading(false);
-      } catch (err) {
-        // toast.error("Error please Try again...", toastOptions);
-        setLoading(false);
-      }
-    };
-
-    fetchAllTransactions();
-  }, [refresh, frequency, endDate, type, startDate]);
+          setLoading(false);
+        } catch (err) {
+          // toast.error("Error please Try again...", toastOptions);
+          setLoading(false);
+        }
+      };
+  
+      fetchAllTransactions();
+    }
+  }, [refresh, frequency, endDate, type, startDate, cUser?._id]); 
 
   const handleTableClick = (e) => {
     setView("table");
@@ -190,6 +192,51 @@ const Home = () => {
             style={{ position: "relative", zIndex: "2 !important" }}
             className="mt-3"
           >
+            
+
+<div className="welcome-message">
+  <h2>Track, Save, and Thrive – Your Expenses, Simplified.</h2>
+  <p>
+    Welcome to your expense tracker! Keep tabs on your daily spending, monitor your savings, and stay on top of your financial health.
+    We provide tools that make managing money easier than ever. Track your transactions, save more, and make informed decisions with our
+    comprehensive expense tracking features. Join us in taking control of your financial future today.
+  </p>
+  
+  <div className="icon-box">
+    <div className="icon">
+      <FaWallet size={50} />
+      <p>Track Spending</p>
+      
+    </div>
+    <div className="icon">
+      <FaRegCreditCard size={50} />
+      <p>Manage Transactions</p>
+      
+    </div>
+    <div className="icon">
+      <FaPiggyBank size={50} />
+      <p>Save Money</p>
+      
+    </div>
+    <div className="icon">
+      <FaChartLine size={50} />
+      <p>Visualize Trends</p>
+      
+    </div>
+    <div className="icon">
+      <FaDollarSign size={50} />
+      <p>Budget Smarter</p>
+      
+    </div>
+    <div className="icon">
+      <FaCogs size={50} />
+      <p>Customize Settings</p>
+      
+    </div>
+  </div>
+</div>
+
+
             <div className="filterRow">
               <div className="text-white">
                 <Form.Group className="mb-3" controlId="formSelectFrequency">
@@ -217,7 +264,7 @@ const Home = () => {
                   >
                     <option value="all">All</option>
                     <option value="expense">Expense</option>
-                    <option value="credit">Earned</option>
+                    <option value="credit">Income</option>
                   </Form.Select>
                 </Form.Group>
               </div>
@@ -245,6 +292,12 @@ const Home = () => {
                 </Button>
                 <Button onClick={handleShow} className="mobileBtn">
                   +
+                </Button>
+                <Button variant="danger" onClick={handleReset} className="addNew">
+                Reset Filter
+              </Button>
+              <Button onClick={handleReset} className="mobileBtn">
+                  -
                 </Button>
                 <Modal show={show} onHide={handleClose} centered>
                   <Modal.Header closeButton>
@@ -314,7 +367,7 @@ const Home = () => {
                           onChange={handleChange}
                         >
                           <option value="">Choose...</option>
-                          <option value="credit">Credit</option>
+                          <option value="credit">Income</option>
                           <option value="expense">Expense</option>
                         </Form.Select>
                       </Form.Group>
@@ -383,11 +436,7 @@ const Home = () => {
               <></>
             )}
 
-            <div className="containerBtn">
-              <Button variant="primary" onClick={handleReset}>
-                Reset Filter
-              </Button>
-            </div>
+           
             {view === "table" ? (
               <>
                 <TableData data={transactions} user={cUser} />
