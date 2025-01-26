@@ -138,10 +138,6 @@ const Home = () => {
     setFrequency("7");
   };
 
-
-  
-
-
   useEffect(() => {
     if (cUser && cUser._id) {
       const fetchAllTransactions = async () => {
@@ -168,7 +164,8 @@ const Home = () => {
   
       fetchAllTransactions();
     }
-  }, [refresh, frequency, endDate, type, startDate, cUser?._id]); 
+  }, [refresh, frequency, endDate, type, startDate, cUser]); // Add 'cUser' here
+  
 
   const handleTableClick = (e) => {
     setView("table");

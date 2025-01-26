@@ -270,6 +270,10 @@ const handleSpriteChange = (e) => {
                     </option>
                   ))}
                 </select>
+                <h3 className="text-center text-white mt-3">
+  Selected Sprite: {selectedSprite}
+</h3>
+
                 <Button
                   onClick={setProfilePicture}
                   type="submit"
